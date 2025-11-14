@@ -52,7 +52,7 @@ This README provides a learner's summary of key concepts, technologies, and expe
 * Running automated tests in CI.
 * Preparing backend apps for deployment.
 
-###🌐 **Container Orchestration with Kubernetes**
+### 🌐 **Container Orchestration with Kubernetes**
 
 Understanding Pods, Deployments, and Services.
 
@@ -63,7 +63,7 @@ Working with YAML configuration files.
 Deploying Django and API services to Kubernetes clusters.
 
 
-###🖥️ **Advanced Shell Scripting**
+### 🖥️ **Advanced Shell Scripting**
 
 Building automation scripts for deployment and monitoring.
 
@@ -74,7 +74,7 @@ Log management and cleanup scripts.
 Enhancing productivity with reusable shell utilities.
 
 
-###💳 **Payment Integration – Chapa API**
+### 💳 **Payment Integration – Chapa API**
 
 Integrating secure payment workflows.
 
@@ -85,7 +85,7 @@ Creating reusable payment service modules.
 Testing payment flows and webhook events.
 
 
-###🔧 **Jenkins & GitHub Actions (CI/CD)**
+### 🔧 **Jenkins & GitHub Actions (CI/CD)**
 
 Building pipelines for automated testing and deployment.
 
@@ -96,7 +96,7 @@ Running migrations, tests, and lint checks automatically.
 Workflow files for multi-step deployment processes.
 
 
-###⏱️ **Scheduling Automations – Crontab & Advanced Scheduling**
+### ⏱️ **Scheduling Automations – Crontab & Advanced Scheduling**
 
 Writing cron expressions.
 
@@ -107,7 +107,7 @@ Integrating crontab with Django & Celery.
 Error handling and logging for automated jobs.
 
 
-###🔐 **Security & Analytics – IP Tracking**
+### 🔐 **Security & Analytics – IP Tracking**
 
 Implementing middleware for IP logging.
 
@@ -117,9 +117,8 @@ Using geolocation APIs for analytics.
 
 Storing and analyzing request patterns.
 
----
 
-## 🗄️ Database Setup & Configuration
+### 🗄️ Database Setup & Configuration
 
 * Setting up MySQL/PostgreSQL locally and in Docker.
 * Managing schema migrations with Django.
