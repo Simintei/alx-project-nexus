@@ -1,3 +1,25 @@
-from django.shortcuts import render
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 
-# Create your views here.
+from .models import Book
+from .serializers import BookSerializer
+
+class BookViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows books to be viewed, created, updated, or deleted.
+    Pagination is applied automatically through DRF settings.
+    """
+    queryset = Book.objects.all().order_by('-created_at')
+    serializer_class = BookSerializer
+
+    # Optional enhancements (recommended)
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+
+    # Filtering examples
+    filterset_fields = ["category", "author"]
+
+    # Search examples
+    search_fields = ["title", "author"]
+
+    # Sorting examples
+    ordering_fields = ["price", "created_at"]
