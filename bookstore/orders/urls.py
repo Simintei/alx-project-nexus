@@ -1,6 +1,10 @@
 from django.urls import path
 from .views impport CartView, AddToCartView, RemoveFromCartView, CheckOutView
 
+router = DefaultRouter()
+router.register(r'cart', CartItemViewSet, basename='cart')
+router.register(r'orders', OrderViewSet, basename='orders')
+
 urlpatterns = [
   path("cart/", CartView.as_view(), name="cart"),
   path("cart/add/", AddToCartView.as_view(), name="add_to_cart"),
