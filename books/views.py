@@ -1,8 +1,8 @@
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Book
-from .serializers import BookSerializer
+from .models import Book, Category, Author
+from .serializers import BookSerializer, CategorySerializer, AuthorSerializer
 
 class BookViewSet(viewsets.ModelViewSet):
     """
