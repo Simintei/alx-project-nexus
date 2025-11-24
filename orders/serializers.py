@@ -1,7 +1,7 @@
 # orders/serializers.py
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from api.books.models import Book
+from books.models import Book
 from .models import CartItem, Order, OrderItem
 
 
