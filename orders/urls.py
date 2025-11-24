@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CartView, AddToCartView, RemoveFromCartView, CheckOutView
+from .views import CartView, AddToCartView, RemoveFromCartView, CheckoutView
 
 router = DefaultRouter()
 router.register(r'cart', CartItemViewSet, basename='cart')
