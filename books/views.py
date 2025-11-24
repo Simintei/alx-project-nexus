@@ -23,3 +23,11 @@ class BookViewSet(viewsets.ModelViewSet):
 
     # Sorting examples
     ordering_fields = ["price", "created_at"]
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
