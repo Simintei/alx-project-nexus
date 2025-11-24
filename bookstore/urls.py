@@ -35,9 +35,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #all other apps-books,users,orders
-    path('api/books/', include ('api.books.urls)),
-    path("api/users/", include("api.users.urls")),
-    path("api/orders/", include("api.orders.urls")),                                           
+    path('api/books/', include ('books.urls)),
+    path("api/users/", include('users.urls')),
+    path("api/orders/", include('orders.urls')),                                           
 
     #JWT Authentication                            
     path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
