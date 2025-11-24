@@ -9,7 +9,7 @@ class BookViewSet(viewsets.ModelViewSet):
     API endpoint that allows books to be viewed, created, updated, or deleted.
     Pagination is applied automatically through DRF settings.
     """
-    queryset = Book.objects.all().order_by('-created_at')
+    queryset = Book.objects.all().order_by('-id')
     serializer_class = BookSerializer
 
     # Optional enhancements (recommended)
