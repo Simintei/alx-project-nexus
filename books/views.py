@@ -22,7 +22,7 @@ class BookViewSet(viewsets.ModelViewSet):
     search_fields = ["title", "author"]
 
     # Sorting examples
-    ordering_fields = ["price", "created_at"]
+    ordering_fields = ["price"]
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
