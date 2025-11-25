@@ -1,11 +1,23 @@
-from rest_framework import status
+from rest_framework import status, serializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
+from drf_yasg.utils import swagger_auto_schema
+
+# Optional serializers for documentation
+class RegisterSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
 class RegisterView(APIView):
+    @swagger_auto_schema(request_body=RegisterSerializer, responses={201: "User registered successfully"})
     def post(self, request):
         username = request.data.get('username')
         email = request.data.get('email')
@@ -21,12 +33,12 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
+    @swagger_auto_schema(request_body=LoginSerializer, responses={200: "JWT tokens"})
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
 
         user = authenticate(username=username, password=password)
-
         if user is None:
             return Response({"error": "Invalid credentials"}, status=400)
 
@@ -36,6 +48,3 @@ class LoginView(APIView):
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         })
-
-
-# Create your views here.
