@@ -13,7 +13,7 @@ class BookViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
 
     # Optional enhancements (recommended)
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend]
 
     # Filtering examples
     filterset_fields = ["category", "author"]
