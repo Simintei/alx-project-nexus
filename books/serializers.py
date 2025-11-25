@@ -39,7 +39,6 @@ class BookSerializer(serializers.ModelSerializer):
             "category",
             "category_id",
             "price",
-            "created_at",
         ]
 
 
