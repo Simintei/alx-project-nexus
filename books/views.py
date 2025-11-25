@@ -24,6 +24,9 @@ class BookViewSet(viewsets.ModelViewSet):
     # Sorting examples
     ordering_fields = ["price"]
 
+    def get_schema_fields(self, view)
+        return[]
+    
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
