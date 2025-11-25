@@ -1,13 +1,14 @@
 """bookstore URL Configuration"""
 
-from django.shortcuts import redirect
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.shortcuts import redirect
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 
+# Swagger / OpenAPI schema view
 schema_view = get_schema_view(
     openapi.Info(
         title="Bookstore API",
@@ -15,11 +16,18 @@ schema_view = get_schema_view(
         description="API for bookstore backend",
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,),  
+    permission_classes=(permissions.AllowAny,),
 )
 
+# Redirect root URL to Swagger UI
+def redirect_to_swagger(request):
+    return redirect('schema-swagger-ui')
+
 urlpatterns = [
-    path('', lambda request: redirect('schema-swagger-ui')),
+    # Root redirects to Swagger
+    path('', redirect_to_swagger),
+
+    # Admin
     path('admin/', admin.site.urls),
 
     # App URLs
