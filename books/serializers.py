@@ -15,14 +15,16 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
+    # Read-only nested details
     category = CategorySerializer(read_only=True)
+    author = AuthorSerializer(read_only=True)
+
+    # Write-only IDs for creating/updating
     category_id = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
         source="category",
         write_only=True
     )
-
-    author = AuthorSerializer(read_only=True)
     author_id = serializers.PrimaryKeyRelatedField(
         queryset=Author.objects.all(),
         source="author",
@@ -40,5 +42,3 @@ class BookSerializer(serializers.ModelSerializer):
             "category_id",
             "price",
         ]
-
-
