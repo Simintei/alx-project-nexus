@@ -1,10 +1,23 @@
-from django.urls import path
+# orders/urls.py
+
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CartView, AddToCartView, RemoveFromCartView, CheckoutView
+from .views import CartViewSet, OrderViewSet, CheckoutView
+
+router = DefaultRouter()
+
+# CartViewSet handles:
+#   GET /cart/         → list cart items
+#   POST /cart/        → add to cart
+#   DELETE /cart/{id}/ → remove from cart
+router.register(r'cart', CartViewSet, basename='cart')
+
+# List user orders
+router.register(r'orders', OrderViewSet, basename='orders')
 
 urlpatterns = [
-  path("cart/", CartView.as_view(), name="cart"),
-  path("cart/add/", AddToCartView.as_view(), name="add_to_cart"),
-  path("cart/remove/<int:pk>/", RemoveFromCartView.as_view(), name="remove_from_cart"),
-  path("checkout/", CheckoutView.as_view(), name="checkout"),
+    path('', include(router.urls)),
+
+    # Checkout endpoint
+    path('checkout/', CheckoutView.as_view({'post': 'create'}), name='checkout'),
 ]
