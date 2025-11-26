@@ -11,3 +11,9 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+  class Meta:
+    indexes = [
+          models.Index(fields=['category']),
+          models.Index(fields=['author']),
+        ]
