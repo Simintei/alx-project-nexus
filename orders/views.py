@@ -1,6 +1,7 @@
 # orders/views.py
 
-from rest_framework import generics
+from rest_framework import viewsets, status              
+from rest_framework.response import Response             
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
 from django_filters.rest_framework import FilterSet
@@ -9,33 +10,28 @@ from .models import CartItem, Order, OrderItem
 from .serializers import CartItemSerializer, OrderSerializer
 
 
-# Define a FilterSet for CartItem
+# Filter — compatible with viewsets
 class CartItemFilter(FilterSet):
     class Meta:
         model = CartItem
-        fields = ["book", "quantity"]  # fields users can filter by
+        fields = ["book", "quantity"]
 
 
-class CartView(generics.ListAPIView):
+
+class CartViewSet(viewsets.ModelViewSet):                 
     """
-    List all items in the authenticated user's cart.
-    """
-    serializer_class = CartItemSerializer
-    permission_classes = [IsAuthenticated]
-    filterset_class = CartItemFilter  
-
-    def get_queryset(self):
-        return CartItem.objects.filter(user=self.request.user).select_related("book")
-
-
-class AddToCartView(generics.CreateAPIView):
-    """
-    Add a book to the authenticated user's cart.
+    Handles listing, adding, and removing cart items.
+    Emulates- CartView, AddToCartView, RemoveFromCartView
     """
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
+    filterset_class = CartItemFilter
 
-    def post(self, request):
+    def get_queryset(self):                                
+        return CartItem.objects.filter(user=self.request.user)
+
+    
+    def create(self, request, *args, **kwargs):            
         book_id = request.data.get("book")
         quantity = int(request.data.get("quantity", 1))
 
@@ -56,23 +52,10 @@ class AddToCartView(generics.CreateAPIView):
 
         return Response(CartItemSerializer(cart_item).data, status=201)
 
+   
+    def destroy(self, request, *args, **kwargs):           
+        pk = kwargs.get("pk")
 
-# Define a FilterSet for RemoveFromCartView (optional, mainly for schema)
-class RemoveCartItemFilter(FilterSet):
-    class Meta:
-        model = CartItem
-        fields = ["id"]
-
-
-class RemoveFromCartView(generics.DestroyAPIView):
-    """
-    Remove an item from the authenticated user's cart.
-    """
-    serializer_class = CartItemSerializer
-    permission_classes = [IsAuthenticated]
-    filterset_class = RemoveCartItemFilter  
-
-    def delete(self, request, pk):
         try:
             item = CartItem.objects.get(id=pk, user=request.user)
         except CartItem.DoesNotExist:
@@ -82,15 +65,24 @@ class RemoveFromCartView(generics.DestroyAPIView):
         return Response({"message": "Item removed"}, status=200)
 
 
-class CheckoutView(generics.CreateAPIView):
+
+class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Checkout the authenticated user's cart and create an order.
+    Lists orders for the authenticated user.
     """
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+
+
+class CheckoutView(viewsets.ViewSet):                     
+    permission_classes = [IsAuthenticated]
+
     @transaction.atomic
-    def post(self, request):
+    def create(self, request):                             
         cart_items = CartItem.objects.filter(user=request.user).select_related("book")
         if not cart_items.exists():
             return Response({"error": "Cart is empty"}, status=400)
@@ -107,6 +99,6 @@ class CheckoutView(generics.CreateAPIView):
                 price=item.book.price,
             )
 
-        cart_items.delete()  # clear cart
+        cart_items.delete()
 
         return Response(OrderSerializer(order).data, status=201)
