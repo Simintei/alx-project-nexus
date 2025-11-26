@@ -1,10 +1,10 @@
 # orders/views.py
 
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 from rest_framework import viewsets, status              
 from rest_framework.response import Response             
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
-from django_filters.rest_framework import FilterSet
 from books.models import Book
 from .models import CartItem, Order, OrderItem
 from .serializers import CartItemSerializer, OrderSerializer
@@ -25,6 +25,7 @@ class CartViewSet(viewsets.ModelViewSet):
     """
     serializer_class = CartItemSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
     filterset_class = CartItemFilter
 
     def get_queryset(self):                                
@@ -72,6 +73,7 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     """
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
