@@ -29,8 +29,11 @@ class CartViewSet(viewsets.ModelViewSet):
     filterset_class = CartItemFilter
 
     def get_queryset(self):                                
-        return CartItem.objects.filter(user=self.request.user)
+        if getattr(self, 'swagger_fake_view', False):
+            return CartItem.objects.none()
 
+        return CartItem.objects.filter(user=self.request.user)
+        
     
     def create(self, request, *args, **kwargs):            
         book_id = request.data.get("book")
@@ -76,6 +79,9 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [DjangoFilterBackend]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Order.objects.none()
+
         return Order.objects.filter(user=self.request.user)
 
 
