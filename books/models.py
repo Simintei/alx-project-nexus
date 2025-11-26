@@ -12,8 +12,8 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-  class Meta:
-    indexes = [
-          models.Index(fields=['category']),
-          models.Index(fields=['author']),
-        ]
+    class Meta:
+      indexes = [
+            models.Index(fields=['category']),
+            models.Index(fields=['author']),
+          ]
