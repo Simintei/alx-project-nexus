@@ -250,7 +250,6 @@ alx-project-nexus/
     seed.py
     requirements.txt
 ```
-```
 
 ## Models
 
@@ -283,6 +282,22 @@ class Book(models.Model):
 ### BookSerializer (nested + writable foreign keys)
 
 ```python
+from rest_framework import serializers
+from .models import Book, Category, Author
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ["id", "name"]
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ["id", "name"
+
+
 class BookSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     category_id = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), source="category", write_only=True)
