@@ -192,3 +192,236 @@ This program has strengthened backend engineering skills through hands‑on work
 
 ---
 
+# Bookstore API
+
+A Django REST Framework (DRF) project for managing books, authors, and categories. Includes Swagger/OpenAPI documentation, nested serializers, and structured endpoints.
+
+## Features
+
+* CRUD for **Books**, **Authors**, and **Categories**
+* Nested serializers with writable foreign keys
+* Swagger UI & Redoc API documentation
+* Fully RESTful URL structure
+
+## Requirements
+
+* Python 3.10+
+* Django 4+
+* Django REST Framework
+* drf-yasg (for Swagger)
+
+## Installation
+
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Project Structure
+
+```
+alx-project-nexus/
+    bookstore/ <------------main project
+        settings.py
+        urls.py  
+    books/ <----------apps
+        models.py
+        serializers.py
+        views.py
+        urls.py
+    users/ <----------apps
+        models.py
+        serializers.py
+        views.py
+        urls.py
+    orders/ <----------apps
+        models.py
+        serializers.py
+        views.py
+        urls.py
+    manage.py
+    README.MD
+    seed.py
+    requirements.txt
+```
+```
+
+## Models
+
+### Category
+
+```python
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+```
+
+### Author
+
+```python
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+```
+
+### Book
+
+```python
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+```
+
+## Serializers
+
+### BookSerializer (nested + writable foreign keys)
+
+```python
+class BookSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(read_only=True)
+    category_id = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), source="category", write_only=True)
+
+    author = AuthorSerializer(read_only=True)
+    author_id = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all(), source="author", write_only=True)
+
+    class Meta:
+        model = Book
+        fields = ["id", "title", "author", "author_id", "category", "category_id", "price"]
+```
+
+## Views
+
+### DRF ModelViewSets
+
+```python
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+```
+
+## URLs
+
+### books/urls.py
+
+```python
+router = DefaultRouter()
+router.register(r"books", BookViewSet)
+router.register(r"categories", CategoryViewSet)
+router.register(r"authors", AuthorViewSet)
+
+urlpatterns = [path("", include(router.urls))]
+```
+
+### users/urls.py
+
+```python
+from django.urls import path
+from .views import RegisterView, LoginView
+from rest_framework_simplejwt.views import TokenRefreshView
+
+urlpatterns = [
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+]
+```
+
+### orders/urls.py
+
+```python
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import CartViewSet, OrderViewSet, CheckoutView
+
+router = DefaultRouter()
+
+# CartViewSet handles:
+#   GET /cart/         → list cart items
+#   POST /cart/        → add to cart
+#   DELETE /cart/{id}/ → remove from cart
+router.register(r'cart', CartViewSet, basename='cart')
+
+# List user orders
+router.register(r'orders', OrderViewSet, basename='orders')
+
+urlpatterns = [
+    path('', include(router.urls)),
+
+    # Checkout endpoint
+    path('checkout/', CheckoutView.as_view({'post': 'create'}), name='checkout'),
+]
+```
+
+### bookstore/urls.py
+
+```python
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Bookstore API",
+        default_version="v1",
+        description="API for bookstore backend",
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+# Redirect root URL to Swagger UI
+def redirect_to_swagger(request):
+    return redirect('schema-swagger-ui')
+
+urlpatterns = [
+    # Root redirects to Swagger
+    path('', redirect_to_swagger),
+
+    # Admin
+    path('admin/', admin.site.urls),
+
+    # App URLs
+    path('api/books/', include('books.urls')),
+    path('api/users/', include('users.urls')),
+    path('api/orders/', include('orders.urls')),
+
+    # JWT Authentication
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Swagger / OpenAPI
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$',
+            schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
+         name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
+         name='schema-redoc'),
+]
+```
+
+## Swagger / API Docs
+
+* Swagger UI: `/docs/swagger/`
+* ReDoc: `/docs/redoc/`
+
+## Example Create Book Request
+
+```json
+{
+  "title": "Django for Beginners",
+  "author_id": 1,
+  "category_id": 2,
+  "price": 1500
+}
+```
+
+## Running the Server
+
+```bash
+python manage.py runserver
+```
+
+## License
+
+MIT
+
+
