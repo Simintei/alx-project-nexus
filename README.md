@@ -260,7 +260,7 @@ alx-project-nexus/
 
 ### Entity-Relationship Diagram (ERD)
 
-Based on your models: User, Author, Category, Book, CartItem, Order, OrderItem
+Based the projects models: User, Author, Category, Book, CartItem, Order, OrderItem
 
 
 
