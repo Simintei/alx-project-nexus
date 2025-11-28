@@ -194,7 +194,7 @@ This program has strengthened backend engineering skills through hands‑on work
 
 # Bookstore API
 
-A Django REST Framework (DRF) project for managing books, authors, and categories. Includes Swagger/OpenAPI documentation, nested serializers, and structured endpoints.
+A Django REST Framework (DRF) e-commerce backend project for managing books, authors, and categories. Includes Swagger/OpenAPI documentation, nested serializers, and structured endpoints.
 
 ## Features
 
