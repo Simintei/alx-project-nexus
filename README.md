@@ -257,9 +257,12 @@ alx-project-nexus/
 
 ## Database Schema
 
+
 ### Entity-Relationship Diagram (ERD)
 
 Based on your models: User, Author, Category, Book, CartItem, Order, OrderItem
+
+
 
 **1. Entities & Attributes**
 User (Django built-in)
@@ -274,6 +277,7 @@ password
 
 
 
+
 **Category**
 
 id (PK)
@@ -285,6 +289,7 @@ Author
 id (PK)
 
 name
+
 
 
 **Book**
@@ -302,6 +307,7 @@ category_id (FK → Category.id)
 author_id (FK → Author.id)
 
 
+
 **CartItem**
 id (PK)
 
@@ -310,6 +316,7 @@ user_id (FK → User.id)
 book_id (FK → Book.id)
 
 quantity
+
 
 
 **Order**
@@ -321,6 +328,7 @@ user_id (FK → User.id)
 total_amount
 
 created_at
+
 
 
 **OrderItem**
@@ -344,11 +352,15 @@ A user can add many books to their cart.
 
 Each CartItem belongs to exactly one user.
 
+
+
 User 1 → Many Orders
 
 A user can place many orders.
 
 Each Order belongs to exactly one user.
+
+
 
 Category 1 → Many Books
 
@@ -356,15 +368,21 @@ A book belongs to one category.
 
 A category can have many books.
 
+
+
 Author 1 → Many Books
 
 Each book has one author.
 
 An author can write many books.
 
+
+
 Book 1 → Many CartItems
 
 Books can appear in many different user carts.
+
+
 
 Order 1 → Many OrderItems
 
@@ -372,9 +390,13 @@ An order contains multiple books.
 
 Each OrderItem belongs to one order.
 
+
+
 Book 1 → Many OrderItems
 
 A book can appear in many placed orders.
+
+
 ```
 
 ```
