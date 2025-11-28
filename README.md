@@ -265,7 +265,8 @@ Based the projects models: User, Author, Category, Book, CartItem, Order, OrderI
 
 
 **1. Entities & Attributes**
-User (Django built-in)
+
+**User (Django built-in)**
 
 id (PK)
 
