@@ -199,6 +199,11 @@ A Django REST Framework (DRF) project for managing books, authors, and categorie
 ## Features
 
 * CRUD for **Books**, **Authors**, and **Categories**
+     Create, read, update, and delete operations for products and categories.
+     User authentication and management features using JWT. 
+* API Features
+     Filtering and Sorting: Allow users to filter products by category and sort by price.
+     Pagination: Implement paginated responses for large product datasets.
 * Nested serializers with writable foreign keys
 * Swagger UI & Redoc API documentation
 * Fully RESTful URL structure
