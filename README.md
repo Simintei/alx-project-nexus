@@ -256,7 +256,6 @@ alx-project-nexus/
 ```
 
 ## Database Schema
-```
 
 ### Entity-Relationship Diagram (ERD)
 
@@ -378,6 +377,7 @@ Book 1 → Many OrderItems
 A book can appear in many placed orders.
 ```
 
+```
 ## Models
 
 ### Category
