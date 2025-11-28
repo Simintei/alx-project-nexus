@@ -309,6 +309,7 @@ author_id (FK → Author.id)
 
 
 **CartItem**
+
 id (PK)
 
 user_id (FK → User.id)
