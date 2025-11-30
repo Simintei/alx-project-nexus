@@ -31,12 +31,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django-cors-headers',
     'django_filters',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',  
     'drf_yasg',
+
+    #apps
     'users',
     'books',
     'orders',
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # REST Framework configuration
 REST_FRAMEWORK = {
