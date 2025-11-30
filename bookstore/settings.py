@@ -72,7 +72,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-LOGIN_URL = "/api/auth/login/"
+LOGIN_URL = "/api/auth/register/"
 
 ROOT_URLCONF = 'bookstore.urls'
 
