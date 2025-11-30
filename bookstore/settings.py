@@ -88,16 +88,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 
 # Database
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bookstore',
-        'USER': 'simintei',
-        'PASSWORD': 'Gothatena6969#',
-        'HOST': 'localhost',
-        'PORT': '5432',  # added missing comma
+        'NAME': os.environ.get('railway'),
+        'USER': os.environ.get('postgres'),
+        'PASSWORD': os.environ.get('yPNivXvKyZeMhmNmSVcunzQkwgdIVUQY'),
+        'HOST': os.environ.get('postgres.railway.internal'),
+        'PORT': os.environ.get('5432'),
     }
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
