@@ -87,8 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 
-# Database
-import os
 
 DATABASES = {
     'default': {
