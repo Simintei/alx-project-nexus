@@ -70,6 +70,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+LOGIN_URL = "/api/auth/login/"
+
 ROOT_URLCONF = 'bookstore.urls'
 
 TEMPLATES = [
