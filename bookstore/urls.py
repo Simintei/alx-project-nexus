@@ -41,7 +41,7 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     #User registration
-    path('api/auth/register/', RegisterView.as_view(), name='register'),
+    #path('api/auth/register/', RegisterView.as_view(), name='register'),
     
     # Swagger / OpenAPI
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
