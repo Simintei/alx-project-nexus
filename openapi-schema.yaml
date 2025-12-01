@@ -1,0 +1,1268 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/books/books/:
+    get:
+      operationId: listBooks
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: category
+        required: false
+        in: query
+        description: category
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createBook
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+  /api/books/books/{id}/:
+    get:
+      operationId: retrieveBook
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      - name: category
+        required: false
+        in: query
+        description: category
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateBook
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      - name: category
+        required: false
+        in: query
+        description: category
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateBook
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      - name: category
+        required: false
+        in: query
+        description: category
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyBook
+      description: 'API endpoint that allows books to be viewed, created, updated,
+        or deleted.
+
+        Pagination is applied automatically through DRF settings.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      - name: category
+        required: false
+        in: query
+        description: category
+        schema:
+          type: string
+      - name: author
+        required: false
+        in: query
+        description: author
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/books/categories/:
+    get:
+      operationId: listCategories
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCategory
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+  /api/books/categories/{id}/:
+    get:
+      operationId: retrieveCategory
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCategory
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCategory
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCategory
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/books/authors/:
+    get:
+      operationId: listAuthors
+      description: ''
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Author'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createAuthor
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+      tags:
+      - api
+  /api/books/authors/{id}/:
+    get:
+      operationId: retrieveAuthor
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this author.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateAuthor
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this author.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateAuthor
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this author.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Author'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyAuthor
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this author.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/orders/cart/:
+    get:
+      operationId: listCartItems
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: book
+        required: false
+        in: query
+        description: book
+        schema:
+          type: string
+      - name: quantity
+        required: false
+        in: query
+        description: quantity
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CartItem'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCartItem
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+          description: ''
+      tags:
+      - api
+  /api/orders/cart/{id}/:
+    get:
+      operationId: retrieveCartItem
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: book
+        required: false
+        in: query
+        description: book
+        schema:
+          type: string
+      - name: quantity
+        required: false
+        in: query
+        description: quantity
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCartItem
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: book
+        required: false
+        in: query
+        description: book
+        schema:
+          type: string
+      - name: quantity
+        required: false
+        in: query
+        description: quantity
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCartItem
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: book
+        required: false
+        in: query
+        description: book
+        schema:
+          type: string
+      - name: quantity
+        required: false
+        in: query
+        description: quantity
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartItem'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCartItem
+      description: 'Handles listing, adding, and removing cart items.
+
+        Emulates- CartView, AddToCartView, RemoveFromCartView'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: book
+        required: false
+        in: query
+        description: book
+        schema:
+          type: string
+      - name: quantity
+        required: false
+        in: query
+        description: quantity
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/orders/orders/:
+    get:
+      operationId: listOrders
+      description: Lists orders for the authenticated user.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - results
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+  /api/orders/orders/{id}/:
+    get:
+      operationId: retrieveOrder
+      description: Lists orders for the authenticated user.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+  /api/users/register/:
+    post:
+      operationId: createRegister
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/users/login/:
+    post:
+      operationId: createLogin
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/orders/checkout/:
+    post:
+      operationId: createCheckout
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/auth/login/:
+    post:
+      operationId: createTokenObtainPair
+      description: 'Takes a set of user credentials and returns an access and refresh
+        JSON web
+
+        token pair to prove the authentication of those credentials.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+      tags:
+      - api
+  /api/auth/token/refresh/:
+    post:
+      operationId: createTokenRefresh
+      description: 'Takes a refresh type JSON web token and returns an access type
+        JSON web
+
+        token if the refresh token is valid.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        author:
+          type: object
+          properties:
+            id:
+              type: integer
+              readOnly: true
+            name:
+              type: string
+              maxLength: 255
+          required:
+          - name
+          readOnly: true
+        author_id:
+          type: integer
+          writeOnly: true
+        category:
+          type: object
+          properties:
+            id:
+              type: integer
+              readOnly: true
+            name:
+              type: string
+              maxLength: 255
+          required:
+          - name
+          readOnly: true
+        category_id:
+          type: integer
+          writeOnly: true
+        price:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 1000000
+          minimum: -1000000
+      required:
+      - title
+      - author_id
+      - category_id
+      - price
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        book:
+          type: integer
+        book_title:
+          type: string
+          readOnly: true
+        price:
+          type: string
+          readOnly: true
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        added_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - book
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        total_amount:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 100000000
+          minimum: -100000000
+        status:
+          enum:
+          - PENDING
+          - PAID
+          - SHIPPED
+          - DELIVERED
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                readOnly: true
+              book:
+                type: integer
+                nullable: true
+              book_title:
+                type: string
+                readOnly: true
+              quantity:
+                type: integer
+                maximum: 2147483647
+                minimum: 0
+              price:
+                type: string
+                format: decimal
+                multipleOf: 0.01
+                maximum: 100000000
+                minimum: -100000000
+            required:
+            - quantity
+            - price
+          readOnly: true
+      required:
+      - total_amount
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - password
+    TokenRefresh:
+      type: object
+      properties:
+        refresh:
+          type: string
+        access:
+          type: string
+          readOnly: true
+      required:
+      - refresh
